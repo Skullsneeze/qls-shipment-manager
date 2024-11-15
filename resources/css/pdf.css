@@ -1,0 +1,124 @@
+.page-title {
+    @apply my-4 text-3xl md:text-5xl text-orange-500 font-bold leading-tight text-center md:text-left;
+}
+
+.product-template-row {
+    display: none;
+}
+
+.load-mask {
+    @apply fixed bg-opacity-40 bg-black w-full h-full top-0 left-0 z-50 flex justify-center items-center;
+}
+
+.loader {
+    width: 90px;
+    height: 14px;
+    box-shadow: 0 3px 0 #fff;
+    position: relative;
+    display: grid;
+    clip-path: inset(-60px 0 -5px)
+}
+.loader:after {
+    content: "";
+    position: relative;
+    background: repeating-linear-gradient(90deg,#0000 0 calc(50% - 8px), #ccc 0 calc(50% + 8px), #0000 0 100%) 0 0/calc(100%/3) 100%;
+    animation: l6-1 1s infinite;
+}
+.loader:before {
+    content: "";
+    position: absolute;
+    width: 14px;
+    aspect-ratio: 1;
+    left: calc(50% - 7px);
+    bottom: 0;
+    border-radius: 50%;
+    background: lightblue;
+    animation: l6-2 1s infinite;
+}
+@keyframes l6-1 {
+    50%,100% {background-position: calc(100%/2) 0}
+}
+@keyframes l6-2 {
+    0%,50% {transform:translateY(-80px)}
+}
+
+.step {
+    @apply transition-all ease-out;
+}
+
+.step.has-mask {
+    @apply opacity-50 max-h-[200px] overflow-hidden;
+}
+
+.step .step-mask {
+    @apply absolute bg-gradient-to-b from-transparent to-white w-full h-full z-50;
+}
+
+/**
+ * Buttons
+ */
+.btn {
+    @apply bg-sky-500 hover:bg-sky-700 text-white font-bold py-2 px-4 rounded cursor-pointer;
+}
+.btn-primary {
+    @apply bg-sky-500 text-white;
+}
+.btn-secondary {
+    @apply bg-transparent text-sky-500 border border-sky-500;
+}
+.btn-icon {
+    @apply inline-flex items-center pl-3;
+}
+.btn-icon.btn-small {
+    @apply pl-2;
+}
+.btn-icon svg {
+    @apply mr-1;
+}
+
+.btn-disabled {
+    @apply cursor-not-allowed bg-sky-300 hover:bg-sky-300;
+}
+
+.btn-small {
+    @apply py-1 px-2 text-sm;
+}
+
+/**
+ * Form elements
+ */
+.form-label {
+    @apply block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2;
+}
+
+.form-input-text {
+    @apply appearance-none block w-full bg-white text-black border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:border-sky-200;
+}
+
+.form-input-checkbox {
+    @apply appearance-none block w-full font-bold text-black py-3 mb-3 leading-tight focus:outline-none focus:border-sky-200;
+}
+
+.form-input-select {
+    @apply block appearance-none w-full bg-white text-black border rounded py-3 px-4 pr-8 leading-tight focus:outline-none focus:border-sky-200;
+}
+
+.form-input.has-error {
+    @apply border-red-500;
+}
+
+.form-input-text.disabled,
+.form-input-select.disabled {
+    @apply bg-gray-100 text-gray-400;
+}
+
+.form-input-error {
+    @apply text-red-500 text-xs italic;
+}
+
+.form-input-price {
+    @apply pl-7;
+}
+.form-input-price-icon {
+    @apply absolute align-middle text-gray-400 px-3 py-3 font-bold;
+}
