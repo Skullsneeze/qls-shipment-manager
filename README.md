@@ -1,6 +1,6 @@
 # QLS - Shipment generator application
 
-This applciation uses the QLS API to generate a shipment based on order information provided by the user. The output will be a combination of the packing slip and the shipping label.
+This application uses the QLS API to generate a shipment based on order information provided by the user. The output will be a combination of the packing slip and the shipping label.
 This project can run locally with ease using ddev (preferred and documented below), or can be setup using a more traditional development stack.
 
 ## Prerequisites
