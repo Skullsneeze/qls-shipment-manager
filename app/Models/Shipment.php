@@ -22,6 +22,9 @@ use Spatie\PdfToImage\Pdf as PdfToImage;
 
 class Shipment extends Model implements ShipmentInterface
 {
+    /**
+     * @return string[]
+     */
     public static function getShippingCountries(): array
     {
         return [
@@ -178,5 +181,14 @@ class Shipment extends Model implements ShipmentInterface
         $response = $qlsApi->getLabel($this, QlsApi::LABEL_SIZE_A6);
 
         return $this->convertLabelToImage($response->body());
+    }
+
+    /**
+     * @return bool
+     */
+    public function canHaveLabel(): bool
+    {
+        return $this->getQlsId() !== ShipmentInterface::NO_LABEL_ID &&
+            $this->getQlsToken() !== ShipmentInterface::NO_LABEL_ID;
     }
 }

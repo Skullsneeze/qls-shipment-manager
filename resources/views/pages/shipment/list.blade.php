@@ -32,12 +32,14 @@
                             <li>
                                 <a class="font-medium text-sky-600 hover:underline" href="{{ route('shipment.view', ['shipment' => $shipment]) }}">Bekijk verzending</a>
                             </li>
+                            @if ($shipment->canHaveLabel())
                             <li>
                                 <a class="font-medium text-sky-600 hover:underline" href="{{ route('shipment.show.packing-slip', ['shipment' => $shipment]) }}">Bekijk pakbon</a>
                             </li>
                             <li>
                                 <a class="font-medium text-sky-600 hover:underline" href="{{ route('shipment.download.packing-slip', ['shipment' => $shipment]) }}">Download pakbon</a>
                             </li>
+                            @endif
                         </ul>
                     </td>
                 </tr>

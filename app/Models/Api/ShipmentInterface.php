@@ -6,6 +6,8 @@ namespace App\Models\Api;
 
 interface ShipmentInterface
 {
+    public const NO_LABEL_ID = 'none';
+
     public const FIELD_ORDER_ID = 'order_id';
     public const FIELD_QLS_ID = 'qls_id';
     public const FIELD_QLS_TOKEN = 'qls_token';

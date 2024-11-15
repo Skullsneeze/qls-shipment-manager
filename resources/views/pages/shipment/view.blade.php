@@ -24,7 +24,7 @@
             <h2 class="mt-5 text-orange-500">
                 Bestelling {{ $order->getNumber() }}
             </h2>
-
+            @if ($shipment->canHaveLabel())
             <div class="mt-5">
                 <a class="btn btn-primary mr-3" target="_blank" href="{{ route('shipment.show.packing-slip', ['shipment' => $shipment]) }}">
                     Pakbon bekijken
@@ -35,6 +35,7 @@
                     Pakbon downloaden
                 </a>
             </div>
+            @endif
         </div>
         <div class="flex flex-col w-1/2 lg:w-1/3 justify-self-end justify-end text-right">
             <h2 class="divide-y divide-gray-200 text-orange-500 font-bold text-lg">

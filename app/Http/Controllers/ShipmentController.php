@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\CreateShipmentRequest;
+use App\Models\Api\ShipmentInterface;
 use App\Models\Client\QlsApi;
 use App\Models\Client\Request\CreateShipment;
 use App\Models\Order;
@@ -52,9 +53,20 @@ class ShipmentController extends Controller
 
         $shipment = new Shipment();
         $shipment->setOrderId($order->id);
-        $shipment->setQlsId($responseData['id']);
-        $shipment->setQlsToken($responseData['token']);
+        $shipment->setQlsId($responseData['id'] ?? ShipmentInterface::NO_LABEL_ID);
+        $shipment->setQlsToken($responseData['token'] ?? ShipmentInterface::NO_LABEL_ID);
         $shipment->save();
+
+        if (!$shipment->canHaveLabel()) {
+            if ($request->wantsJson()) {
+                return response()->json([
+                    'success' => true,
+                    'redirect_uri' => route('shipment.view', ['shipment' => $shipment]),
+                ]);
+            }
+
+            return;
+        }
 
         $packingSlipFile = $shipment->getPackingSlip();
 
@@ -145,30 +157,6 @@ class ShipmentController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Shipment $shipment)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Shipment $shipment)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Shipment $shipment)
-    {
-        //
-    }
-
-    /**
      * Remove the specified resource from storage.
      */
     public function getMethods(Request $request)
@@ -180,6 +168,9 @@ class ShipmentController extends Controller
         $mappedMethods = [];
         $mappedMethodOptions = [];
         foreach ($methods as $method) {
+            if ($method['type'] !== 'delivery') {
+                continue;
+            }
             $group = $method['product_family']['name'] ?? 'Overige';
             $mappedMethods[$group][] = [
                 'value' => $method['id'],
